@@ -1,16 +1,21 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mini Glaze Card</title>
+    <title>Glaze Database Test</title>
 </head>
 <body>
-    <h1>Mini Glaze Card</h1>
+    <h1>Page is working</h1>
 
-    <h2>{{ glaze_name }}</h2>
+    <p>If you can see this, Django is loading index.html correctly.</p>
 
-    <p><strong>Cone:</strong> {{ cone }}</p>
-    <p><strong>Color:</strong> {{ color }}</p>
-    <p><strong>Surface:</strong> {{ surface }}</p>
-    <p><strong>Notes:</strong> {{ notes }}</p>
+    <h2>Glazes:</h2>
+
+    {% for glaze in glaze_bases %}
+        <p>{{ glaze.name }}</p>
+    {% empty %}
+        <p>No glazes were sent from views.py.</p>
+    {% endfor %}
 </body>
 </html>
