@@ -3,19 +3,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Glaze Database Test</title>
+    <title>Glaze Database</title>
+    <link rel="stylesheet" href="{% static 'main.css' %}">
 </head>
+
 <body>
-    <h1>Page is working</h1>
 
-    <p>If you can see this, Django is loading index.html correctly.</p>
+    <div class="page-layout">
 
-    <h2>Glazes:</h2>
+        <!-- LEFT SIDEBAR / FILTER AREA -->
+        <aside class="sidebar">
+            <h2>Filters</h2>
 
-    {% for glaze in glaze_bases %}
-        <p>{{ glaze.name }}</p>
-    {% empty %}
-        <p>No glazes were sent from views.py.</p>
-    {% endfor %}
+            <form method="get">
+
+                <label for="cone">Cone</label>
+                <select name="cone" id="cone">
+                    <option value="">All Cones</option>
+                    <option value="04">Cone 04</option>
+                    <option value="6">Cone 6</option>
+                    <option value="7">Cone 7</option>
+                    <option value="10">Cone 10</option>
+                </select>
+
+                <label for="texture">Texture</label>
+                <select name="texture" id="texture">
+                    <option value="">All Textures</option>
+                    <option value="Glossy">Glossy</option>
+                    <option value="Matte">Matte</option>
+                    <option value="Satin">Satin</option>
+                </select>
+
+                <label for="transparency">Transparency</label>
+                <select name="transparency" id="transparency">
+                    <option value="">All Transparency</option>
+                    <option value="Opaque">Opaque</option>
+                    <option value="Semi-translucent">Semi-translucent</option>
+                    <option value="Translucent">Translucent</option>
+                </select>
+
+                <button type="submit">Filter</button>
+
+            </form>
+        </aside>
+
+
+        <!-- RIGHT SIDE / DATABASE AREA -->
+        <main class="database-area">
+
+            <h1>Glaze Database</h1>
+            <p class="page-description">
+                Browse glaze bases by cone, texture, and transparency.
+            </p>
+
+            <div class="glaze-grid">
+
+                {% for glaze in glaze_bases %}
+                    <div class="glaze-card">
+
+                        <h2>{{ glaze.name }}</h2>
+
+                        <p><strong>Cone:</strong> {{ glaze.cone }}</p>
+                        <p><strong>Texture:</strong> {{ glaze.texture }}</p>
+                        <p><strong>Transparency:</strong> {{ glaze.transparency }}</p>
+                        <p><strong>Color:</strong> {{ glaze.color|default:"Unknown" }} </p>
+
+                        <p>{{ glaze.description }}</p>
+
+                        <a href="#" class="details-button">View Glaze For Ingredients</a>
+
+                    </div>
+                {% empty %}
+                    <p>No glazes match those filters.</p>
+                {% endfor %}
+
+            </div>
+
+        </main>
+
+    </div>
+
 </body>
 </html>
