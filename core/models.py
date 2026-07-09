@@ -1,10 +1,41 @@
 from django.db import models
 
+CONE_CHOICES = [
+    ("04", "04"),
+    ("6", "6"),
+    ("7", "7"),
+    ("10", "10")
+]
+
+TRANSPARENCY_CHOICES = [
+    ("Unknown", "Unknown"),
+    ("Opaque", "Opaque"),
+    ("Semi-translucent", "Semi-translucent"),
+    ("Translucent", "Translucent"),
+]
+
+TEXTURE_CHOICES = [
+    ("Unknown", "Unknown"),
+    ("Glossy", "Glossy"),
+    ("Matte", "Matte"),
+    ("Satin", "Satin"),
+]
+
 class Glaze(models.Model):
     name = models.CharField(max_length=100)
-    cone = models.CharField(max_length=20)
+    cone = models.CharField(
+        max_length=50,
+        choices = CONE_CHOICES
+    )
     color = models.CharField(max_length=50, default="Unknown")
-    surface = models.CharField(max_length=50, blank=True)
+    texture = models.CharField(
+        max_length=50,
+        choices=TEXTURE_CHOICES
+    )
+    transparency = models.CharField(
+        max_length=50,
+        choices=TRANSPARENCY_CHOICES
+    )
     notes = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):

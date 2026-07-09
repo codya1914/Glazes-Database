@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ glaze.name }}</title>
+    <link rel="stylesheet" href="{% static 'core/main.css' %}">
+</head>
+
+<body>
+
+    <div class="detail-page">
+
+        <div class="detail-card">
+
+            <div class="detail-top">
+                <a href="{% url 'index' %}" class="back-button">Back to Database</a>
+            </div>
+
+            <h1 class="detail-title">{{ glaze.name }}</h1>
+
+            <div class="glaze-info-grid">
+                <p><strong>Cone:</strong> {{ glaze.cone }}</p>
+                <p><strong>Texture:</strong> {{ glaze.texture }}</p>
+                <p><strong>Transparency:</strong> {{ glaze.transparency }}</p>
+                <p><strong>Color:</strong> {{ glaze.color|default:"Unknown" }}</p>
+            </div>
+
+            <div class="detail-content">
+
+                <section class="ingredients-section-detail">
+                    <h2>Ingredients</h2>
+
+                    <table class="ingredient-table">
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Amount</th>
+                                <th>Unit</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for item in ingredients %}
+                                <tr>
+                                    <td>{{ item.ingredient.name }}</td>
+                                    <td>{{ item.amount }}</td>
+                                    <td>{{ item.unit }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="3">No ingredients added yet.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td><strong>{{ total_amount }}</strong></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </section>
+
+                <section class="images-section">
+                    <h2>Images</h2>
+
+                    <div class="image-box">
+                        Image placeholder
+                    </div>
+
+                    <div class="image-box">
+                        Image placeholder
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

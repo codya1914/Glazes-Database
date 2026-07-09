@@ -8,9 +8,9 @@ class GlazeIngredientInline(admin.TabularInline):
 
 
 class GlazeAdmin(admin.ModelAdmin):
-    list_display = ("name", "cone", "color", "surface")
-    search_fields = ("name", "color", "surface")
-    list_filter = ("cone", "color", "surface")
+    list_display = ("name", "cone", "color", "texture", "transparency")
+    search_fields = ("name", "color", "texture", "transparency")
+    list_filter = ("cone", "color", "texture", "transparency")
     inlines = [GlazeIngredientInline]
 
 

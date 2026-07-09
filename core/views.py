@@ -1,7 +1,7 @@
 from .models import Glaze
 
 from decimal import Decimal
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import GlazeForm
 from .models import Ingredient, GlazeIngredient
 
@@ -62,3 +62,20 @@ def add_glaze(request):
         form = GlazeForm()
 
     return render(request, "core/add_glaze.html", {"form": form})
+
+def glaze_detail(request, glaze_id):
+    glaze = get_object_or_404(Glaze, id=glaze_id)
+
+    ingredients = GlazeIngredient.objects.filter(glaze=glaze)
+
+    total_amount = 0
+    for item in ingredients:
+        total_amount += item.amount
+
+    context = {
+        "glaze": glaze,
+        "ingredients": ingredients,
+        "total_amount": total_amount,
+    }
+
+    return render(request, "core/glaze_detail.html", context)

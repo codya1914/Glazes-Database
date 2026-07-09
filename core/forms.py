@@ -4,4 +4,4 @@ from django import forms
 class GlazeForm(forms.ModelForm):
     class Meta:
         model = Glaze
-        fields = ["name", "cone", "color", "surface", "notes"]
+        fields = ["name", "cone", "color", "texture", "transparency", "notes"]

@@ -1,0 +1,368 @@
+/* ================================
+   1. SITE COLORS / VARIABLES
+   ================================ */
+
+:root {
+    --page-bg: #f5f0e6;
+    --tan: #d8c7a8;
+    --tan-dark: #c9b58f;
+    --green: #4f6f52;
+    --dark: #2f2f2f;
+    --white: #ffffff;
+    --cream: #f7f0e3;
+    --border-light: #ddd;
+    --danger: #c0392b;
+    --danger-dark: #922b21;
+}
+
+
+/* ================================
+   2. BASE PAGE STYLES
+   ================================ */
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--page-bg);
+    color: var(--dark);
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+
+/* ================================
+   3. MAIN DATABASE PAGE LAYOUT
+   ================================ */
+
+.page-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 20px;
+}
+
+.database-area {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.page-description {
+    margin-bottom: 20px;
+}
+
+
+/* ================================
+   4. SIDEBAR FILTER FORM
+   ================================ */
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.sidebar input,
+.sidebar select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.sidebar button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+/* ================================
+   5. GLAZE CARDS ON MAIN PAGE
+   ================================ */
+
+.glaze-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.glaze-card {
+    background-color: var(--white);
+    border: 1px solid var(--border-light);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.glaze-card h2 {
+    margin-bottom: 10px;
+}
+
+.glaze-card p {
+    margin: 8px 0;
+}
+
+
+/* ================================
+   6. BUTTONS AND LINKS
+   ================================ */
+
+.add-button,
+.details-button,
+.back-button {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.add-button,
+.details-button {
+    background-color: var(--green);
+    color: var(--cream);
+}
+
+.add-button:hover,
+.details-button:hover {
+    background-color: #3f5942;
+}
+
+.back-button {
+    background-color: var(--tan);
+    color: var(--dark);
+}
+
+.back-button:hover {
+    background-color: var(--tan-dark);
+}
+
+
+/* ================================
+   7. ADD GLAZE FORM PAGE
+   ================================ */
+
+.form-card {
+    max-width: 700px;
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+}
+
+.glaze-form p {
+    margin-bottom: 16px;
+}
+
+.glaze-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.glaze-form input,
+.glaze-form select,
+.glaze-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.glaze-form button {
+    padding: 10px 16px;
+    background-color: var(--green);
+    color: var(--cream);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.glaze-form button:hover {
+    background-color: #3f5942;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+
+/* ================================
+   8. ADD INGREDIENTS AREA
+   ================================ */
+
+.ingredients-section {
+    margin-top: 28px;
+}
+
+.ingredient-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.ingredient-entry input {
+    width: 160px;
+}
+
+.ingredient-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.remove-ingredient-button {
+    padding: 5px 10px;
+    background-color: var(--danger);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remove-ingredient-button:hover {
+    background-color: var(--danger-dark);
+}
+
+.ingredient-total-row {
+    display: flex;
+    justify-content: space-between;
+    max-width: 500px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 2px solid #ccc;
+    font-size: 20px;
+}
+
+
+/* ================================
+   9. GLAZE DETAIL PAGE
+   ================================ */
+
+.detail-page {
+    min-height: 100vh;
+    background-color: var(--page-bg);
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.detail-card {
+    width: 100%;
+    max-width: 1000px;
+    background-color: var(--green);
+    color: var(--cream);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.detail-top {
+    margin-bottom: 16px;
+}
+
+.detail-title {
+    text-align: center;
+    font-size: 42px;
+    margin: 10px 0 30px;
+}
+
+.glaze-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 40px;
+    background-color: var(--tan);
+    color: var(--dark);
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 30px;
+}
+
+.glaze-info-grid p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.detail-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 28px;
+}
+
+
+/* ================================
+   10. DETAIL PAGE INGREDIENT TABLE
+   ================================ */
+
+.ingredients-section-detail,
+.images-section {
+    background-color: var(--cream);
+    color: var(--dark);
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.ingredients-section-detail h2,
+.images-section h2 {
+    margin-top: 0;
+}
+
+.ingredient-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.ingredient-table th {
+    background-color: var(--tan);
+    text-align: left;
+    padding: 12px;
+}
+
+.ingredient-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.ingredient-table tfoot td {
+    background-color: var(--tan);
+    border-bottom: none;
+}
+
+
+/* ================================
+   11. DETAIL PAGE IMAGE PLACEHOLDERS
+   ================================ */
+
+.image-box {
+    height: 160px;
+    background-color: var(--tan);
+    border: 2px dashed #9d8b6f;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5a4a35;
+    margin-bottom: 16px;
+}

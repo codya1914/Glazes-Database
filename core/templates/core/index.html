@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Glaze Database</title>
-    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="{% static 'core/main.css' %}">
 </head>
 
 <body>
@@ -72,8 +72,7 @@
 
                         <p>{{ glaze.description }}</p>
 
-                        <a href="#" class="details-button">View Glaze For Ingredients</a>
-
+                        <a href="{% url 'glaze_detail' glaze.id %}" class="details-button"> View Glaze For Ingredients </a>            
                     </div>
                 {% empty %}
                     <p>No glazes match those filters.</p>
