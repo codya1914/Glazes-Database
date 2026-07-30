@@ -65,15 +65,17 @@
                 </section>
 
                 <section class="images-section">
-                    <h2>Images</h2>
-
-                    <div class="image-box">
-                        Image placeholder
-                    </div>
-
-                    <div class="image-box">
-                        Image placeholder
-                    </div>
+                    {% if glaze.image %}
+                        <img
+                            src="{{ glaze.image.url }}"
+                            alt="{{ glaze.name }}"
+                            class="glaze-detail-image"
+                        >
+                    {% else %}
+                        <div class="no-image">
+                            No image available
+                        </div>
+                    {% endif %}
                 </section>
 
             </div>

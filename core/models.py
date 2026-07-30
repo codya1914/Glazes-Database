@@ -36,6 +36,11 @@ class Glaze(models.Model):
         max_length=50,
         choices=TRANSPARENCY_CHOICES
     )
+    image = models.ImageField(
+        upload_to="glaze_images/",
+        blank=True,
+        null=True
+    )
     notes = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
@@ -62,3 +67,5 @@ class GlazeIngredient(models.Model):
 
     def __str__(self):
         return f"{self.glaze.name} - {self.ingredient.name}"
+    
+

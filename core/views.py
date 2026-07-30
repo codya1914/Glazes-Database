@@ -38,7 +38,7 @@ def index(request):
 
 def add_glaze(request):
     if request.method == "POST":
-        form = GlazeForm(request.POST)
+        form = GlazeForm(request.POST, request.FILES)
 
         if form.is_valid():
             glaze = form.save()

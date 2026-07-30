@@ -36,28 +36,38 @@ h1, h2, h3 {
    3. MAIN DATABASE PAGE LAYOUT
    ================================ */
 
+html,
+body {
+    height: 100%;
+}
+
 .page-layout {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .sidebar {
     width: 250px;
+    height: 100vh;
+    flex-shrink: 0;
     background-color: var(--dark);
     color: var(--white);
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .database-area {
     flex: 1;
+    height: 100vh;
     padding: 30px;
     overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .page-description {
     margin-bottom: 20px;
 }
-
 
 /* ================================
    4. SIDEBAR FILTER FORM
@@ -308,6 +318,25 @@ h1, h2, h3 {
     gap: 28px;
 }
 
+.glaze-detail-image {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    height: 350px;
+    margin: 0 auto 25px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.no-image {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 25px;
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #e5d5b5;
+    border-radius: 10px;
+}
 
 /* ================================
    10. DETAIL PAGE INGREDIENT TABLE

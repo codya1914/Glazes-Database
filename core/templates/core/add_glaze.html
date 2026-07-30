@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Add Glaze</title>
-    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="{% static 'core/main.css' %}">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
                 Add a new glaze base to the database.
             </p>
 
-            <form method="post" class="glaze-form">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
 
