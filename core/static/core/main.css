@@ -159,19 +159,49 @@ body {
 
 
 /* ================================
-   7. ADD GLAZE FORM PAGE
+   ADD GLAZE PAGE CLEAN LAYOUT
    ================================ */
 
-.form-card {
-    max-width: 700px;
-    background-color: var(--white);
-    padding: 24px;
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
+.add-glaze-page {
+    min-height: 100vh;
+    background-color: var(--page-bg);
+    padding: 50px 0;
+    box-sizing: border-box;
 }
 
-.glaze-form p {
-    margin-bottom: 16px;
+.add-glaze-card {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--green);
+    color: var(--cream);
+    border-radius: 18px;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.add-glaze-card h1 {
+    text-align: center;
+    font-size: 2.3rem;
+    margin-bottom: 12px;
+}
+
+.add-glaze-card .page-description {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.form-section {
+    background-color: var(--cream);
+    color: var(--dark);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+}
+
+.form-section h2 {
+    margin-bottom: 18px;
 }
 
 .glaze-form label {
@@ -185,175 +215,134 @@ body {
 .glaze-form textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #bbb;
-    border-radius: 6px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
     font-size: 15px;
     box-sizing: border-box;
 }
 
-.glaze-form button {
-    padding: 10px 16px;
-    background-color: var(--green);
-    color: var(--cream);
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.glaze-form textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
-.glaze-form button:hover {
-    background-color: #3f5942;
+.ingredient-entry {
+    display: grid;
+    grid-template-columns: 1fr 160px auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
 .form-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-top: 20px;
+    gap: 14px;
 }
 
-
-/* ================================
-   8. ADD INGREDIENTS AREA
-   ================================ */
-
-.ingredients-section {
-    margin-top: 28px;
-}
-
-.ingredient-entry {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-}
-
-.ingredient-entry input {
-    width: 160px;
-}
-
-.ingredient-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border-light);
-}
-
-.remove-ingredient-button {
-    padding: 5px 10px;
-    background-color: var(--danger);
-    color: var(--white);
+.form-actions button {
+    background-color: var(--tan);
+    color: var(--dark);
+    padding: 10px 16px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.remove-ingredient-button:hover {
-    background-color: var(--danger-dark);
+.form-actions button:hover {
+    background-color: var(--tan-dark);
 }
-
-.ingredient-total-row {
-    display: flex;
-    justify-content: space-between;
-    max-width: 500px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 2px solid #ccc;
-    font-size: 20px;
-}
-
 
 /* ================================
-   9. GLAZE DETAIL PAGE
+   9. DETAIL PAGE LAYOUT
    ================================ */
 
 .detail-page {
+    width: 100%;
     min-height: 100vh;
+    padding: 50px 0;
+    box-sizing: border-box;
     background-color: var(--page-bg);
-    display: flex;
-    justify-content: center;
-    padding: 50px 20px;
 }
 
 .detail-card {
-    width: 100%;
-    max-width: 1000px;
     background-color: var(--green);
     color: var(--cream);
-    border-radius: 20px;
-    padding: 32px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    border-radius: 18px;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.wide-detail-card {
+    width: 95%;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .detail-top {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .detail-title {
+    font-size: 2.4rem;
     text-align: center;
-    font-size: 42px;
-    margin: 10px 0 30px;
+    margin-bottom: 24px;
 }
 
-.glaze-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px 40px;
-    background-color: var(--tan);
-    color: var(--dark);
-    padding: 20px;
-    border-radius: 14px;
-    margin-bottom: 30px;
-}
-
-.glaze-info-grid p {
-    margin: 0;
-    font-size: 18px;
-}
-
-.detail-content {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 28px;
-}
-
-.glaze-detail-image {
-    display: block;
-    width: 100%;
-    max-width: 500px;
-    height: 350px;
-    margin: 0 auto 25px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.no-image {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto 25px;
-    padding: 60px 20px;
-    text-align: center;
-    background-color: #e5d5b5;
-    border-radius: 10px;
-}
 
 /* ================================
-   10. DETAIL PAGE INGREDIENT TABLE
+   10. BASE GLAZE 3-COLUMN SECTION
    ================================ */
 
-.ingredients-section-detail,
-.images-section {
-    background-color: var(--cream);
-    color: var(--dark);
-    padding: 20px;
-    border-radius: 14px;
+.base-glaze-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 24px;
+    align-items: start;
 }
 
-.ingredients-section-detail h2,
-.images-section h2 {
-    margin-top: 0;
+.base-ingredients-panel,
+.base-info-panel,
+.base-images-panel {
+    background-color: var(--cream);
+    color: var(--dark);
+    border-radius: 14px;
+    padding: 20px;
+    box-sizing: border-box;
 }
+
+.base-info-panel {
+    text-align: center;
+}
+
+.base-attributes-box {
+    background-color: var(--tan);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.base-attributes-box p {
+    margin: 10px 0;
+}
+
+.notes-section {
+    background-color: var(--page-bg);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: left;
+}
+
+.notes-section h2 {
+    margin-bottom: 12px;
+}
+
+
+/* ================================
+   11. TABLES
+   ================================ */
 
 .ingredient-table {
     width: 100%;
@@ -365,33 +354,195 @@ body {
 
 .ingredient-table th {
     background-color: var(--tan);
-    text-align: left;
+    color: var(--dark);
     padding: 12px;
+    text-align: left;
 }
 
 .ingredient-table td {
+    color: var(--dark);
     padding: 12px;
     border-bottom: 1px solid var(--border-light);
 }
 
-.ingredient-table tfoot td {
-    background-color: var(--tan);
+.ingredient-table tr:last-child td {
     border-bottom: none;
 }
 
 
 /* ================================
-   11. DETAIL PAGE IMAGE PLACEHOLDERS
+   12. IMAGE SECTIONS
    ================================ */
 
-.image-box {
-    height: 160px;
-    background-color: var(--tan);
-    border: 2px dashed #9d8b6f;
-    border-radius: 12px;
+.section-heading-row {
     display: flex;
-    justify-content: center;
     align-items: center;
-    color: #5a4a35;
+    justify-content: space-between;
+    gap: 10px;
     margin-bottom: 16px;
+}
+
+.inline-image-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.inline-image-form input[type="file"] {
+    max-width: 160px;
+}
+
+.small-add-button {
+    background-color: var(--tan);
+    color: var(--dark);
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.small-add-button:hover {
+    background-color: var(--tan-dark);
+}
+
+.images-scroll-box {
+    max-height: 500px;
+    overflow-y: auto;
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.glaze-photo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.glaze-photo-card {
+    background-color: var(--white);
+    color: var(--dark);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.glaze-image {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+
+/* ================================
+   13. VARIANT SECTION
+   ================================ */
+
+.variant-section {
+    margin-top: 40px;
+    background-color: var(--cream);
+    color: var(--dark);
+    border-radius: 14px;
+    padding: 24px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.variant-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.variant-carousel {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 18px;
+    align-items: center;
+}
+
+.variant-card-wrapper {
+    min-height: 300px;
+}
+
+.variant-card {
+    background-color: var(--page-bg);
+    border-radius: 14px;
+    padding: 22px;
+    box-sizing: border-box;
+}
+
+.hidden-variant {
+    display: none;
+}
+
+.variant-main-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.variant-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.variant-additives,
+.variant-images {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.small-images-box {
+    max-height: 300px;
+}
+
+.variant-arrow {
+    background-color: var(--tan);
+    color: var(--dark);
+    font-size: 2rem;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.variant-arrow:hover {
+    background-color: var(--tan-dark);
+}
+
+.variant-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+
+/* ================================
+   14. RESPONSIVE DETAIL PAGE
+   ================================ */
+
+@media (max-width: 1000px) {
+    .base-glaze-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .variant-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .variant-carousel {
+        grid-template-columns: 1fr;
+    }
+
+    .variant-arrow {
+        width: 60px;
+        margin: 0 auto;
+    }
 }

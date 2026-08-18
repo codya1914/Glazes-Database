@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Glaze</title>
-    <link rel="stylesheet" href="{% static 'core/main.css' %}?v=30">
+    <title>Add Variant</title>
+    <link rel="stylesheet" href="{% static 'core/main.css' %}?v=40">
 </head>
 
 <body>
@@ -14,39 +14,31 @@
     <div class="add-glaze-card">
 
         <div class="detail-top">
-            <a href="{% url 'index' %}" class="back-button">Back to Database</a>
+            <a href="{% url 'glaze_detail' glaze.id %}" class="back-button">
+                Back to {{ glaze.name }}
+            </a>
         </div>
 
-        <h1>Add Base Glaze</h1>
+        <h1>Add Variant</h1>
 
         <p class="page-description">
-            Add the main base glaze information here. Images and variants can be added later from the glaze detail page.
+            Add a variant for <strong>{{ glaze.name }}</strong>. This is where color and additives belong.
         </p>
 
         <form method="post" class="glaze-form">
             {% csrf_token %}
 
             <section class="form-section">
-                <h2>Base Glaze Information</h2>
+                <h2>Variant Information</h2>
 
                 <p>
-                    <label for="{{ form.name.id_for_label }}">Glaze Name</label>
+                    <label for="{{ form.name.id_for_label }}">Variant Name</label>
                     {{ form.name }}
                 </p>
 
                 <p>
-                    <label for="{{ form.cone.id_for_label }}">Cone</label>
-                    {{ form.cone }}
-                </p>
-
-                <p>
-                    <label for="{{ form.texture.id_for_label }}">Texture</label>
-                    {{ form.texture }}
-                </p>
-
-                <p>
-                    <label for="{{ form.transparency.id_for_label }}">Transparency</label>
-                    {{ form.transparency }}
+                    <label for="{{ form.color.id_for_label }}">Color</label>
+                    {{ form.color }}
                 </p>
 
                 <p>
@@ -57,45 +49,50 @@
 
 
             <section class="form-section ingredients-section">
-                <div class="section-heading-row">
-                    <h2>Base Ingredients</h2>
 
-                    <button type="button" class="small-add-button" onclick="addIngredientRow()">
-                        Add Ingredient
+                <div class="section-heading-row">
+                    <h2>Additives</h2>
+
+                    <button type="button" class="small-add-button" onclick="addAdditiveRow()">
+                        Add Additive
                     </button>
                 </div>
 
-                <div id="ingredient-list">
+                <div id="additive-list">
 
                     <div class="ingredient-entry">
                         <input
                             type="text"
-                            name="ingredient_name"
-                            placeholder="Ingredient name"
+                            name="additive_name"
+                            placeholder="Additive name"
                         >
 
                         <input
                             type="text"
-                            name="ingredient_amount"
+                            name="additive_amount"
                             placeholder="Amount"
                         >
 
                         <button
                             type="button"
                             class="remove-ingredient-button"
-                            onclick="removeIngredientRow(this)"
+                            onclick="removeAdditiveRow(this)"
                         >
                             Remove
                         </button>
                     </div>
 
                 </div>
+
             </section>
 
 
             <div class="form-actions">
-                <button type="submit">Save Base Glaze</button>
-                <a href="{% url 'index' %}" class="back-button">Cancel</a>
+                <button type="submit">Save Variant</button>
+
+                <a href="{% url 'glaze_detail' glaze.id %}" class="back-button">
+                    Cancel
+                </a>
             </div>
 
         </form>
@@ -106,8 +103,8 @@
 
 
 <script>
-    function addIngredientRow() {
-        const ingredientList = document.getElementById("ingredient-list");
+    function addAdditiveRow() {
+        const additiveList = document.getElementById("additive-list");
 
         const newRow = document.createElement("div");
         newRow.classList.add("ingredient-entry");
@@ -115,33 +112,33 @@
         newRow.innerHTML = `
             <input
                 type="text"
-                name="ingredient_name"
-                placeholder="Ingredient name"
+                name="additive_name"
+                placeholder="Additive name"
             >
 
             <input
                 type="text"
-                name="ingredient_amount"
+                name="additive_amount"
                 placeholder="Amount"
             >
 
             <button
                 type="button"
                 class="remove-ingredient-button"
-                onclick="removeIngredientRow(this)"
+                onclick="removeAdditiveRow(this)"
             >
                 Remove
             </button>
         `;
 
-        ingredientList.appendChild(newRow);
+        additiveList.appendChild(newRow);
     }
 
-    function removeIngredientRow(button) {
+    function removeAdditiveRow(button) {
         const row = button.parentElement;
-        const ingredientList = document.getElementById("ingredient-list");
+        const additiveList = document.getElementById("additive-list");
 
-        if (ingredientList.children.length > 1) {
+        if (additiveList.children.length > 1) {
             row.remove();
         } else {
             row.querySelectorAll("input").forEach(input => input.value = "");

@@ -2,8 +2,8 @@ from .models import Glaze
 
 from decimal import Decimal
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import GlazeForm
-from .models import Ingredient, GlazeIngredient
+from .models import Glaze, GlazeIngredient, GlazeVariant, VariantAdditive
+from .forms import GlazeForm, GlazeVariantForm
 
 def index(request):
     glaze_bases = Glaze.objects.all()
@@ -38,44 +38,82 @@ def index(request):
 
 def add_glaze(request):
     if request.method == "POST":
-        form = GlazeForm(request.POST, request.FILES)
+        form = GlazeForm(request.POST)
 
         if form.is_valid():
             glaze = form.save()
 
-            ingredient_names = request.POST.getlist("ingredient_names")
-            ingredient_amounts = request.POST.getlist("ingredient_amounts")
+            ingredient_names = request.POST.getlist("ingredient_name")
+            ingredient_amounts = request.POST.getlist("ingredient_amount")
 
             for name, amount in zip(ingredient_names, ingredient_amounts):
-                ingredient, created = Ingredient.objects.get_or_create(name=name)
+                if name.strip() or amount.strip():
+                    GlazeIngredient.objects.create(
+                        glaze=glaze,
+                        name=name,
+                        amount=amount
+                    )
 
-                GlazeIngredient.objects.create(
-                    glaze=glaze,
-                    ingredient=ingredient,
-                    amount=amount,
-                    unit="percent"
-                )
-
-            return redirect("index")
+            return redirect("glaze_detail", glaze_id=glaze.id)
 
     else:
         form = GlazeForm()
 
-    return render(request, "core/add_glaze.html", {"form": form})
+    return render(request, "core/add_glaze.html", {
+        "form": form,
+    })
 
 def glaze_detail(request, glaze_id):
     glaze = get_object_or_404(Glaze, id=glaze_id)
 
-    ingredients = GlazeIngredient.objects.filter(glaze=glaze)
+    ingredients = glaze.ingredients.all()
 
-    total_amount = 0
-    for item in ingredients:
-        total_amount += item.amount
-
-    context = {
+    return render(request, "core/glaze_detail.html", {
         "glaze": glaze,
         "ingredients": ingredients,
-        "total_amount": total_amount,
-    }
+    })
 
-    return render(request, "core/glaze_detail.html", context)
+def add_glaze_photo(request, glaze_id):
+    glaze = get_object_or_404(Glaze, id=glaze_id)
+
+    if request.method == "POST":
+        form = GlazePhotoForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.glaze = glaze
+            photo.save()
+
+    return redirect("glaze_detail", glaze_id=glaze.id)
+
+def add_variant(request, glaze_id):
+    glaze = get_object_or_404(Glaze, id=glaze_id)
+
+    if request.method == "POST":
+        form = GlazeVariantForm(request.POST)
+
+        if form.is_valid():
+            variant = form.save(commit=False)
+            variant.glaze = glaze
+            variant.save()
+
+            additive_names = request.POST.getlist("additive_name")
+            additive_amounts = request.POST.getlist("additive_amount")
+
+            for name, amount in zip(additive_names, additive_amounts):
+                if name.strip() or amount.strip():
+                    VariantAdditive.objects.create(
+                        variant=variant,
+                        name=name,
+                        amount=amount
+                    )
+
+            return redirect("glaze_detail", glaze_id=glaze.id)
+
+    else:
+        form = GlazeVariantForm()
+
+    return render(request, "core/add_variant.html", {
+        "form": form,
+        "glaze": glaze,
+    })

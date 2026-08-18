@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import Glaze, Ingredient, GlazeIngredient
+from .models import (
+    Glaze,
+    GlazeIngredient,
+    GlazePhoto,
+    GlazeVariant,
+    VariantAdditive,
+    VariantPhoto,
+)
 
 
 class GlazeIngredientInline(admin.TabularInline):
@@ -7,18 +14,32 @@ class GlazeIngredientInline(admin.TabularInline):
     extra = 1
 
 
+class GlazePhotoInline(admin.TabularInline):
+    model = GlazePhoto
+    extra = 1
+
+
+class VariantAdditiveInline(admin.TabularInline):
+    model = VariantAdditive
+    extra = 1
+
+
+class VariantPhotoInline(admin.TabularInline):
+    model = VariantPhoto
+    extra = 1
+
+
+@admin.register(Glaze)
 class GlazeAdmin(admin.ModelAdmin):
-    list_display = ("name", "cone", "color", "texture", "transparency")
-    search_fields = ("name", "color", "texture", "transparency")
-    list_filter = ("cone", "color", "texture", "transparency")
-    inlines = [GlazeIngredientInline]
+    list_display = ("name", "cone", "texture", "transparency")
+    inlines = [GlazeIngredientInline, GlazePhotoInline]
 
 
-class IngredientAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-    search_fields = ("name",)
+@admin.register(GlazeVariant)
+class GlazeVariantAdmin(admin.ModelAdmin):
+    list_display = ("name", "glaze", "color")
+    inlines = [VariantAdditiveInline, VariantPhotoInline]
 
 
-admin.site.register(Glaze, GlazeAdmin)
-admin.site.register(Ingredient, IngredientAdmin)
-admin.site.register(GlazeIngredient)
+admin.site.register(VariantAdditive)
+admin.site.register(VariantPhoto)

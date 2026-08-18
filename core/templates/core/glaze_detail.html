@@ -9,80 +9,297 @@
 
 <body>
 
-    <div class="detail-page">
+<div class="detail-page">
 
-        <div class="detail-card">
+    <div class="detail-card wide-detail-card">
 
-            <div class="detail-top">
-                <a href="{% url 'index' %}" class="back-button">Back to Database</a>
-            </div>
+        <!-- BACK BUTTON -->
+        <div class="detail-top">
+            <a href="{% url 'index' %}" class="back-button">Back to Database</a>
+        </div>
 
-            <h1 class="detail-title">{{ glaze.name }}</h1>
 
-            <div class="glaze-info-grid">
-                <p><strong>Cone:</strong> {{ glaze.cone }}</p>
-                <p><strong>Texture:</strong> {{ glaze.texture }}</p>
-                <p><strong>Transparency:</strong> {{ glaze.transparency }}</p>
-                <p><strong>Color:</strong> {{ glaze.color|default:"Unknown" }}</p>
-            </div>
+        <!-- TOP SECTION: BASE GLAZE -->
+        <div class="base-glaze-layout">
 
-            <div class="detail-content">
+            <!-- LEFT SIDE: BASE INGREDIENTS -->
+            <section class="base-ingredients-panel">
+                <h2>Base Ingredients</h2>
 
-                <section class="ingredients-section-detail">
-                    <h2>Ingredients</h2>
+                <table class="ingredient-table">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
 
-                    <table class="ingredient-table">
-                        <thead>
+                    <tbody>
+                        {% for item in ingredients %}
                             <tr>
-                                <th>Ingredient</th>
-                                <th>Amount</th>
-                                <th>Unit</th>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.amount }}</td>
                             </tr>
-                        </thead>
-
-                        <tbody>
-                            {% for item in ingredients %}
-                                <tr>
-                                    <td>{{ item.ingredient.name }}</td>
-                                    <td>{{ item.amount }}</td>
-                                    <td>{{ item.unit }}</td>
-                                </tr>
-                            {% empty %}
-                                <tr>
-                                    <td colspan="3">No ingredients added yet.</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-
-                        <tfoot>
+                        {% empty %}
                             <tr>
-                                <td><strong>Total</strong></td>
-                                <td><strong>{{ total_amount }}</strong></td>
-                                <td></td>
+                                <td colspan="2">No ingredients added yet.</td>
                             </tr>
-                        </tfoot>
-                    </table>
-                </section>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
 
-                <section class="images-section">
-                    {% if glaze.image %}
-                        <img
-                            src="{{ glaze.image.url }}"
-                            alt="{{ glaze.name }}"
-                            class="glaze-detail-image"
-                        >
+
+            <!-- MIDDLE: BASE INFO -->
+            <section class="base-info-panel">
+
+                <h1 class="detail-title">{{ glaze.name }}</h1>
+
+                <div class="base-attributes-box">
+                    <p><strong>Cone:</strong> {{ glaze.cone }}</p>
+                    <p><strong>Texture:</strong> {{ glaze.texture }}</p>
+                    <p><strong>Transparency:</strong> {{ glaze.transparency }}</p>
+                </div>
+
+                <section class="notes-section">
+                    <h2>Notes</h2>
+
+                    {% if glaze.notes %}
+                        <p>{{ glaze.notes }}</p>
                     {% else %}
-                        <div class="no-image">
-                            No image available
-                        </div>
+                        <p>No notes added yet.</p>
                     {% endif %}
                 </section>
 
-            </div>
+            </section>
+
+
+            <!-- RIGHT SIDE: BASE IMAGES -->
+            <section class="base-images-panel">
+
+                <div class="section-heading-row">
+                    <h2>Base Images</h2>
+
+                    <form
+                        method="post"
+                        action="{% url 'add_glaze_photo' glaze.id %}"
+                        enctype="multipart/form-data"
+                        class="inline-image-form"
+                    >
+                        {% csrf_token %}
+
+                        <input type="file" name="image" required>
+
+                        <button type="submit" class="small-add-button">
+                            Add Image
+                        </button>
+                    </form>
+                </div>
+
+                <div class="images-scroll-box">
+                    <div class="glaze-photo-grid">
+
+                        {% for photo in glaze.photos.all %}
+                            <div class="glaze-photo-card">
+                                <img
+                                    src="{{ photo.image.url }}"
+                                    alt="{{ photo.caption|default:glaze.name }}"
+                                    class="glaze-image"
+                                >
+
+                                {% if photo.caption %}
+                                    <p>{{ photo.caption }}</p>
+                                {% endif %}
+                            </div>
+                        {% empty %}
+                            <p>No base images available.</p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </section>
 
         </div>
 
+
+        <!-- BOTTOM SECTION: VARIANTS -->
+        <section class="variant-section">
+
+            <div class="variant-header-row">
+                <h2>Variants</h2>
+
+                <a href="{% url 'add_variant' glaze.id %}" class="small-add-button">Add Variant</a>
+            </div>
+
+            {% if glaze.variants.all %}
+
+                <div class="variant-carousel">
+
+                    <!-- LEFT ARROW -->
+                    <button
+                        type="button"
+                        class="variant-arrow"
+                        id="prevVariant"
+                        onclick="changeVariant(-1)"
+                    >
+                        &#8592;
+                    </button>
+
+
+                    <!-- VARIANT CARDS -->
+                    <div class="variant-card-wrapper">
+
+                        {% for variant in glaze.variants.all %}
+
+                            <div class="variant-card {% if not forloop.first %}hidden-variant{% endif %}">
+
+                                <div class="variant-main-info">
+
+                                    <h3>{{ variant.name }}</h3>
+
+                                    <p>
+                                        <strong>Color:</strong>
+                                        {% if variant.color %}
+                                            {{ variant.color }}
+                                        {% else %}
+                                            Unknown
+                                        {% endif %}
+                                    </p>
+
+                                    {% if variant.notes %}
+                                        <p><strong>Notes:</strong> {{ variant.notes }}</p>
+                                    {% else %}
+                                        <p><strong>Notes:</strong> No notes added yet.</p>
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="variant-detail-grid">
+
+                                    <!-- LEFT SIDE: VARIANT ADDITIVES -->
+                                    <section class="variant-additives">
+                                        <h4>Additives</h4>
+
+                                        <table class="ingredient-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Additive</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                {% for additive in variant.additives.all %}
+                                                    <tr>
+                                                        <td>{{ additive.name }}</td>
+                                                        <td>{{ additive.amount }}</td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td colspan="2">No additives added yet.</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </section>
+
+
+                                    <!-- RIGHT SIDE: VARIANT IMAGES -->
+                                    <section class="variant-images">
+                                        <h4>Variant Images</h4>
+
+                                        <div class="images-scroll-box small-images-box">
+                                            <div class="glaze-photo-grid">
+
+                                                {% for photo in variant.photos.all %}
+                                                    <div class="glaze-photo-card">
+                                                        <img
+                                                            src="{{ photo.image.url }}"
+                                                            alt="{{ photo.caption|default:variant.name }}"
+                                                            class="glaze-image"
+                                                        >
+
+                                                        {% if photo.caption %}
+                                                            <p>{{ photo.caption }}</p>
+                                                        {% endif %}
+                                                    </div>
+                                                {% empty %}
+                                                    <p>No variant images available.</p>
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- RIGHT ARROW -->
+                    <button
+                        type="button"
+                        class="variant-arrow"
+                        id="nextVariant"
+                        onclick="changeVariant(1)"
+                    >
+                        &#8594;
+                    </button>
+
+                </div>
+
+            {% else %}
+
+                <p>No variants added yet.</p>
+
+            {% endif %}
+
+        </section>
+
     </div>
+
+</div>
+
+
+<script>
+    let currentVariant = 0;
+
+    const variants = document.querySelectorAll(".variant-card");
+    const prevButton = document.getElementById("prevVariant");
+    const nextButton = document.getElementById("nextVariant");
+
+    function showVariant(index) {
+        variants.forEach((variant, i) => {
+            variant.classList.toggle("hidden-variant", i !== index);
+        });
+
+        if (prevButton && nextButton) {
+            prevButton.disabled = index === 0;
+            nextButton.disabled = index === variants.length - 1;
+        }
+    }
+
+    function changeVariant(direction) {
+        const newIndex = currentVariant + direction;
+
+        if (newIndex < 0 || newIndex >= variants.length) {
+            return;
+        }
+
+        currentVariant = newIndex;
+        showVariant(currentVariant);
+    }
+
+    if (variants.length > 0) {
+        showVariant(currentVariant);
+    }
+</script>
 
 </body>
 </html>
