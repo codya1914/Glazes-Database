@@ -1,0 +1,69 @@
+/* ================================
+   SITE COLORS / VARIABLES
+   ================================ */
+
+:root {
+    --page-bg: #f5f0e6;
+    --tan: #d8c7a8;
+    --tan-dark: #c9b58f;
+    --green: #4f6f52;
+    --dark: #2f2f2f;
+    --white: #ffffff;
+    --cream: #f7f0e3;
+    --border-light: #ddd;
+    --danger: #c0392b;
+    --danger-dark: #922b21;
+}
+
+
+/* ================================
+   BASE PAGE STYLES
+   ================================ */
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--page-bg);
+    color: var(--dark);
+}
+
+h1,
+h2,
+h3 {
+    margin-top: 0;
+}
+
+
+/* ================================
+   SHARED BUTTONS AND LINKS
+   ================================ */
+
+.add-button,
+.details-button,
+.back-button {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.add-button,
+.details-button {
+    background-color: var(--green);
+    color: var(--cream);
+}
+
+.add-button:hover,
+.details-button:hover {
+    background-color: #3f5942;
+}
+
+.back-button {
+    background-color: var(--tan);
+    color: var(--dark);
+}
+
+.back-button:hover {
+    background-color: var(--tan-dark);
+}

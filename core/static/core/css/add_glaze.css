@@ -1,0 +1,115 @@
+/* ================================
+   ADD GLAZE PAGE
+   ================================ */
+
+.add-glaze-page {
+    min-height: 100vh;
+    background-color: var(--page-bg);
+    padding: 50px 0;
+    box-sizing: border-box;
+}
+
+.add-glaze-card {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--green);
+    color: var(--cream);
+    border-radius: 18px;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.add-glaze-card h1 {
+    text-align: center;
+    font-size: 2.3rem;
+    margin-bottom: 12px;
+}
+
+.add-glaze-card .page-description {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+
+/* ================================
+   FORM SECTIONS
+   ================================ */
+
+.form-section {
+    background-color: var(--cream);
+    color: var(--dark);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+}
+
+.form-section h2 {
+    margin-bottom: 18px;
+}
+
+
+/* ================================
+   FORM INPUTS
+   ================================ */
+
+.glaze-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.glaze-form input,
+.glaze-form select,
+.glaze-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.glaze-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+
+/* ================================
+   INGREDIENT INPUTS
+   ================================ */
+
+.ingredient-entry {
+    display: grid;
+    grid-template-columns: 1fr 160px auto;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+
+/* ================================
+   FORM ACTION BUTTONS
+   ================================ */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.form-actions button {
+    background-color: var(--tan);
+    color: var(--dark);
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-actions button:hover {
+    background-color: var(--tan-dark);
+}

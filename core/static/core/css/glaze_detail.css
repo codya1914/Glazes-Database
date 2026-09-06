@@ -1,261 +1,5 @@
 /* ================================
-   1. SITE COLORS / VARIABLES
-   ================================ */
-
-:root {
-    --page-bg: #f5f0e6;
-    --tan: #d8c7a8;
-    --tan-dark: #c9b58f;
-    --green: #4f6f52;
-    --dark: #2f2f2f;
-    --white: #ffffff;
-    --cream: #f7f0e3;
-    --border-light: #ddd;
-    --danger: #c0392b;
-    --danger-dark: #922b21;
-}
-
-
-/* ================================
-   2. BASE PAGE STYLES
-   ================================ */
-
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--page-bg);
-    color: var(--dark);
-}
-
-h1, h2, h3 {
-    margin-top: 0;
-}
-
-
-/* ================================
-   3. MAIN DATABASE PAGE LAYOUT
-   ================================ */
-
-html,
-body {
-    height: 100%;
-}
-
-.page-layout {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    flex-shrink: 0;
-    background-color: var(--dark);
-    color: var(--white);
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.database-area {
-    flex: 1;
-    height: 100vh;
-    padding: 30px;
-    overflow-y: auto;
-    box-sizing: border-box;
-}
-
-.page-description {
-    margin-bottom: 20px;
-}
-
-/* ================================
-   4. SIDEBAR FILTER FORM
-   ================================ */
-
-.sidebar h2 {
-    margin-top: 0;
-}
-
-.sidebar label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-}
-
-.sidebar input,
-.sidebar select {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-}
-
-.sidebar button {
-    margin-top: 20px;
-    width: 100%;
-    padding: 10px;
-    cursor: pointer;
-}
-
-
-/* ================================
-   5. GLAZE CARDS ON MAIN PAGE
-   ================================ */
-
-.glaze-grid {
-    display: grid;
-    gap: 20px;
-}
-
-.glaze-card {
-    background-color: var(--white);
-    border: 1px solid var(--border-light);
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.glaze-card h2 {
-    margin-bottom: 10px;
-}
-
-.glaze-card p {
-    margin: 8px 0;
-}
-
-
-/* ================================
-   6. BUTTONS AND LINKS
-   ================================ */
-
-.add-button,
-.details-button,
-.back-button {
-    display: inline-block;
-    padding: 10px 14px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.add-button,
-.details-button {
-    background-color: var(--green);
-    color: var(--cream);
-}
-
-.add-button:hover,
-.details-button:hover {
-    background-color: #3f5942;
-}
-
-.back-button {
-    background-color: var(--tan);
-    color: var(--dark);
-}
-
-.back-button:hover {
-    background-color: var(--tan-dark);
-}
-
-
-/* ================================
-   ADD GLAZE PAGE CLEAN LAYOUT
-   ================================ */
-
-.add-glaze-page {
-    min-height: 100vh;
-    background-color: var(--page-bg);
-    padding: 50px 0;
-    box-sizing: border-box;
-}
-
-.add-glaze-card {
-    width: 90%;
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: var(--green);
-    color: var(--cream);
-    border-radius: 18px;
-    padding: 28px;
-    box-sizing: border-box;
-}
-
-.add-glaze-card h1 {
-    text-align: center;
-    font-size: 2.3rem;
-    margin-bottom: 12px;
-}
-
-.add-glaze-card .page-description {
-    text-align: center;
-    margin-bottom: 28px;
-}
-
-.form-section {
-    background-color: var(--cream);
-    color: var(--dark);
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 24px;
-    box-sizing: border-box;
-}
-
-.form-section h2 {
-    margin-bottom: 18px;
-}
-
-.glaze-form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
-.glaze-form input,
-.glaze-form select,
-.glaze-form textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    font-size: 15px;
-    box-sizing: border-box;
-}
-
-.glaze-form textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.ingredient-entry {
-    display: grid;
-    grid-template-columns: 1fr 160px auto;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.form-actions {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.form-actions button {
-    background-color: var(--tan);
-    color: var(--dark);
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.form-actions button:hover {
-    background-color: var(--tan-dark);
-}
-
-/* ================================
-   9. DETAIL PAGE LAYOUT
+   DETAIL PAGE LAYOUT
    ================================ */
 
 .detail-page {
@@ -292,7 +36,7 @@ body {
 
 
 /* ================================
-   10. BASE GLAZE 3-COLUMN SECTION
+   BASE GLAZE 3-COLUMN SECTION
    ================================ */
 
 .base-glaze-layout {
@@ -341,7 +85,7 @@ body {
 
 
 /* ================================
-   11. TABLES
+   INGREDIENT TABLE
    ================================ */
 
 .ingredient-table {
@@ -371,7 +115,7 @@ body {
 
 
 /* ================================
-   12. IMAGE SECTIONS
+   IMAGE SECTION
    ================================ */
 
 .section-heading-row {
@@ -439,7 +183,7 @@ body {
 
 
 /* ================================
-   13. VARIANT SECTION
+   VARIANT DISPLAY SECTION
    ================================ */
 
 .variant-section {
@@ -525,7 +269,7 @@ body {
 
 
 /* ================================
-   14. RESPONSIVE DETAIL PAGE
+   RESPONSIVE DETAIL PAGE
    ================================ */
 
 @media (max-width: 1000px) {

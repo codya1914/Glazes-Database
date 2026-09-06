@@ -1,0 +1,90 @@
+/* ================================
+   MAIN DATABASE PAGE LAYOUT
+   ================================ */
+
+html,
+body {
+    height: 100%;
+}
+
+.page-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    flex-shrink: 0;
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.database-area {
+    flex: 1;
+    height: 100vh;
+    padding: 30px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.page-description {
+    margin-bottom: 20px;
+}
+
+
+/* ================================
+   SIDEBAR FILTER FORM
+   ================================ */
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.sidebar input,
+.sidebar select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.sidebar button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+/* ================================
+   GLAZE CARDS
+   ================================ */
+
+.glaze-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.glaze-card {
+    background-color: var(--white);
+    border: 1px solid var(--border-light);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.glaze-card h2 {
+    margin-bottom: 10px;
+}
+
+.glaze-card p {
+    margin: 8px 0;
+}
