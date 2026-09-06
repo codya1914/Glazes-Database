@@ -1,9 +1,6 @@
-from .models import Glaze
-
-from decimal import Decimal
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Glaze, GlazeIngredient, GlazeVariant, VariantAdditive
-from .forms import GlazeForm, GlazeVariantForm
+from .models import Glaze, GlazeIngredient, VariantAdditive, GlazePhoto, VariantPhoto, GlazeVariant
+from .forms import GlazeForm, GlazeVariantForm, GlazePhotoForm
 
 def index(request):
     glaze_bases = Glaze.objects.all()
@@ -37,11 +34,16 @@ def index(request):
 
 
 def add_glaze(request):
+
     if request.method == "POST":
         form = GlazeForm(request.POST)
 
         if form.is_valid():
             glaze = form.save()
+
+            # -------------------------
+            # SAVE INGREDIENTS
+            # -------------------------
 
             ingredient_names = request.POST.getlist("ingredient_name")
             ingredient_amounts = request.POST.getlist("ingredient_amount")
@@ -54,14 +56,33 @@ def add_glaze(request):
                         amount=amount
                     )
 
-            return redirect("glaze_detail", glaze_id=glaze.id)
+            # -------------------------
+            # SAVE IMAGES
+            # -------------------------
+
+            images = request.FILES.getlist("images")
+
+            for image in images:
+                GlazePhoto.objects.create(
+                    glaze=glaze,
+                    image=image
+                )
+
+            return redirect(
+                "glaze_detail",
+                glaze_id=glaze.id
+            )
 
     else:
         form = GlazeForm()
 
-    return render(request, "core/add_glaze.html", {
-        "form": form,
-    })
+    return render(
+        request,
+        "core/add_glaze.html",
+        {
+            "form": form,
+        }
+    )
 
 def glaze_detail(request, glaze_id):
     glaze = get_object_or_404(Glaze, id=glaze_id)
@@ -86,6 +107,19 @@ def add_glaze_photo(request, glaze_id):
 
     return redirect("glaze_detail", glaze_id=glaze.id)
 
+def delete_glaze_photo(request, glaze_id, photo_id):
+    glaze = get_object_or_404(Glaze, id=glaze_id)
+    photo = get_object_or_404(
+        GlazePhoto,
+        id=photo_id,
+        glaze=glaze
+    )
+
+    if request.method == "POST":
+        photo.delete()
+
+    return redirect("glaze_detail", glaze_id=glaze.id)
+
 def add_variant(request, glaze_id):
     glaze = get_object_or_404(Glaze, id=glaze_id)
 
@@ -97,10 +131,17 @@ def add_variant(request, glaze_id):
             variant.glaze = glaze
             variant.save()
 
+            # -------------------------
+            # SAVE ADDITIVES
+            # -------------------------
+
             additive_names = request.POST.getlist("additive_name")
             additive_amounts = request.POST.getlist("additive_amount")
 
-            for name, amount in zip(additive_names, additive_amounts):
+            for name, amount in zip(
+                additive_names,
+                additive_amounts
+            ):
                 if name.strip() or amount.strip():
                     VariantAdditive.objects.create(
                         variant=variant,
@@ -108,12 +149,45 @@ def add_variant(request, glaze_id):
                         amount=amount
                     )
 
-            return redirect("glaze_detail", glaze_id=glaze.id)
+            # -------------------------
+            # SAVE IMAGES
+            # -------------------------
+
+            images = request.FILES.getlist("images")
+
+            for image in images:
+                VariantPhoto.objects.create(
+                    variant=variant,
+                    image=image
+                )
+
+            return redirect(
+                "glaze_detail",
+                glaze_id=glaze.id
+            )
 
     else:
         form = GlazeVariantForm()
 
-    return render(request, "core/add_variant.html", {
-        "form": form,
-        "glaze": glaze,
-    })
+    return render(
+        request,
+        "core/add_variant.html",
+        {
+            "form": form,
+            "glaze": glaze,
+        }
+    )
+
+def delete_variant(request, glaze_id, variant_id):
+    glaze = get_object_or_404(Glaze, id=glaze_id)
+
+    variant = get_object_or_404(
+        GlazeVariant,
+        id=variant_id,
+        glaze=glaze
+    )
+
+    if request.method == "POST":
+        variant.delete()
+
+    return redirect("glaze_detail", glaze_id=glaze.id)
