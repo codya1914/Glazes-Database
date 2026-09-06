@@ -2,32 +2,37 @@
    ADD VARIANT PAGE
    ================================ */
 
-.add-glaze-page {
+.add-variant-page {
     min-height: 100vh;
     background-color: var(--page-bg);
-    padding: 50px 0;
+    padding: 30px 0;
     box-sizing: border-box;
 }
 
-.add-glaze-card {
-    width: 90%;
-    max-width: 900px;
+
+.add-variant-card {
+    width: 95%;
+    max-width: 1500px;
     margin: 0 auto;
+
     background-color: var(--green);
     color: var(--cream);
+
     border-radius: 18px;
     padding: 28px;
+
     box-sizing: border-box;
 }
 
-.add-glaze-card h1 {
-    text-align: center;
+
+.add-variant-card h1 {
+    text-align: left;
     font-size: 2.3rem;
     margin-bottom: 12px;
 }
 
-.add-glaze-card .page-description {
-    text-align: center;
+
+.page-description {
     margin-bottom: 28px;
 }
 
@@ -37,7 +42,28 @@
    ================================ */
 
 .detail-top {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+}
+
+
+/* ================================
+   TWO COLUMN LAYOUT
+   ================================ */
+
+.add-variant-layout {
+    display: grid;
+
+    grid-template-columns: 1fr 1.2fr;
+
+    gap: 24px;
+
+    align-items: start;
+}
+
+
+.variant-left-column,
+.variant-right-column {
+    min-width: 0;
 }
 
 
@@ -48,11 +74,16 @@
 .form-section {
     background-color: var(--cream);
     color: var(--dark);
+
     border-radius: 14px;
+
     padding: 22px;
+
     margin-bottom: 24px;
+
     box-sizing: border-box;
 }
+
 
 .form-section h2 {
     margin-bottom: 18px;
@@ -63,56 +94,90 @@
    FORM INPUTS
    ================================ */
 
-.glaze-form label {
+.variant-form label {
     display: block;
+
     font-weight: bold;
+
     margin-bottom: 6px;
 }
 
-.glaze-form input,
-.glaze-form select,
-.glaze-form textarea {
+
+.variant-form input,
+.variant-form select,
+.variant-form textarea {
     width: 100%;
+
     padding: 10px;
+
     border: 1px solid var(--border-light);
     border-radius: 8px;
+
     font-size: 15px;
+
     box-sizing: border-box;
 }
 
-.glaze-form textarea {
+
+.variant-form textarea {
     min-height: 100px;
     resize: vertical;
 }
 
 
 /* ================================
-   ADDITIVE SECTION HEADER
+   ADDITIVE HEADER
    ================================ */
 
 .section-heading-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .section-heading-row h2 {
-    margin-bottom: 0;
+    margin: 0;
 }
 
 
 /* ================================
-   ADDITIVE ROWS
+   ADDITIVE ROW
    ================================ */
 
 .ingredient-entry {
     display: grid;
-    grid-template-columns: 1fr 160px auto;
+
+    grid-template-columns:
+        1fr
+        160px
+        auto;
+
     gap: 12px;
+
     align-items: center;
+
     margin-bottom: 12px;
+}
+
+/* ================================
+   ACTIVE / NEW ADDITIVE ROW
+   ================================ */
+
+#additive-list .ingredient-entry:first-child {
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 2px solid var(--tan);
+}
+
+
+/* Hide Remove button on the active row */
+
+#additive-list
+.ingredient-entry:first-child
+.remove-ingredient-button {
+    visibility: hidden;
 }
 
 
@@ -123,10 +188,15 @@
 .small-add-button {
     background-color: var(--tan);
     color: var(--dark);
-    padding: 8px 12px;
+
+    padding: 10px 16px;
+
     border: none;
     border-radius: 8px;
+
+    font-size: 15px;
     font-weight: bold;
+
     cursor: pointer;
 }
 
@@ -136,20 +206,91 @@
 
 
 /* ================================
-   REMOVE ADDITIVE BUTTON
+   REMOVE BUTTON
    ================================ */
 
 .remove-ingredient-button {
     background-color: var(--danger);
     color: var(--white);
-    padding: 10px 12px;
+
+    padding: 10px 14px;
+
     border: none;
     border-radius: 8px;
+
     font-weight: bold;
+
     cursor: pointer;
 }
 
 .remove-ingredient-button:hover {
+    background-color: var(--danger-dark);
+}
+
+
+.remove-ingredient-button:hover {
+    background-color: var(--danger-dark);
+}
+
+
+/* ================================
+   IMAGE UPLOAD / PREVIEWS
+   ================================ */
+
+.image-help {
+    margin-top: 0;
+    color: #666;
+}
+
+.image-preview-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.image-preview-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.image-preview-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.image-file-name {
+    color: var(--dark);
+    font-size: 13px;
+    margin: 8px 0;
+    overflow-wrap: anywhere;
+}
+
+/* ================================
+   REMOVE IMAGE BUTTON
+   ================================ */
+
+.remove-image-button {
+    background-color: var(--danger);
+    color: var(--white);
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 8px 12px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.remove-image-button:hover {
     background-color: var(--danger-dark);
 }
 
@@ -160,30 +301,50 @@
 
 .form-actions {
     display: flex;
+
     align-items: center;
+
     gap: 14px;
+
+    margin-top: 8px;
 }
+
 
 .form-actions button {
     background-color: var(--tan);
     color: var(--dark);
+
     padding: 10px 16px;
+
     border: none;
     border-radius: 8px;
+
     font-weight: bold;
+
     cursor: pointer;
 }
+
 
 .form-actions button:hover {
     background-color: var(--tan-dark);
 }
 
 
+
 /* ================================
-   RESPONSIVE LAYOUT
+   RESPONSIVE
    ================================ */
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
+
+    .add-variant-layout {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
 
     .ingredient-entry {
         grid-template-columns: 1fr;
@@ -198,4 +359,5 @@
         flex-direction: column;
         align-items: stretch;
     }
+
 }

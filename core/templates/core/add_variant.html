@@ -2,17 +2,19 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Add Variant</title>
+
     <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/add_variant.css' %}">
 </head>
 
 <body>
 
-<div class="add-glaze-page">
+<div class="add-variant-page">
 
-    <div class="add-glaze-card">
+    <div class="add-variant-card">
 
         <div class="detail-top">
             <a href="{% url 'glaze_detail' glaze.id %}" class="back-button">
@@ -23,77 +25,171 @@
         <h1>Add Variant</h1>
 
         <p class="page-description">
-            Add a variant for <strong>{{ glaze.name }}</strong>. This is where color and additives belong.
+            Add a variant for <strong>{{ glaze.name }}</strong>.
         </p>
 
-        <form method="post" class="glaze-form">
+
+        <form
+            method="post"
+            enctype="multipart/form-data"
+            class="variant-form"
+        >
+
             {% csrf_token %}
 
-            <section class="form-section">
-                <h2>Variant Information</h2>
 
-                <p>
-                    <label for="{{ form.name.id_for_label }}">Variant Name</label>
-                    {{ form.name }}
-                </p>
-
-                <p>
-                    <label for="{{ form.color.id_for_label }}">Color</label>
-                    {{ form.color }}
-                </p>
-
-                <p>
-                    <label for="{{ form.notes.id_for_label }}">Notes</label>
-                    {{ form.notes }}
-                </p>
-            </section>
+            <div class="add-variant-layout">
 
 
-            <section class="form-section ingredients-section">
+                <!-- =========================
+                     LEFT SIDE
+                     VARIANT INFO + IMAGES
+                     ========================= -->
 
-                <div class="section-heading-row">
-                    <h2>Additives</h2>
+                <div class="variant-left-column">
 
-                    <button type="button" class="small-add-button" onclick="addAdditiveRow()">
-                        Add Additive
-                    </button>
+
+                    <!-- VARIANT INFORMATION -->
+
+                    <section class="form-section">
+
+                        <h2>Variant Information</h2>
+
+                        <p>
+                            <label for="{{ form.name.id_for_label }}">
+                                Variant Name
+                            </label>
+
+                            {{ form.name }}
+                        </p>
+
+
+                        <p>
+                            <label for="{{ form.color.id_for_label }}">
+                                Color
+                            </label>
+
+                            {{ form.color }}
+                        </p>
+
+
+                        <p>
+                            <label for="{{ form.notes.id_for_label }}">
+                                Notes
+                            </label>
+
+                            {{ form.notes }}
+                        </p>
+
+                    </section>
+
+
+
+                    <!-- IMAGES -->
+
+                    <section class="form-section">
+
+                        <h2>Images</h2>
+
+                        <p class="image-help">
+                            Select one or more images for this variant.
+                        </p>
+
+                        <input
+                            type="file"
+                            name="images"
+                            id="variant-images"
+                            accept="image/*"
+                            multiple
+                        >
+
+                        <div
+                            id="variant-image-preview"
+                            class="image-preview-grid">
+                        </div>
+
+                    </section>
+
                 </div>
 
-                <div id="additive-list">
 
-                    <div class="ingredient-entry">
-                        <input
-                            type="text"
-                            name="additive_name"
-                            placeholder="Additive name"
-                        >
 
-                        <input
-                            type="text"
-                            name="additive_amount"
-                            placeholder="Amount"
-                        >
+                <!-- =========================
+                     RIGHT SIDE
+                     ADDITIVES
+                     ========================= -->
 
-                        <button
-                            type="button"
-                            class="remove-ingredient-button"
-                            onclick="removeAdditiveRow(this)"
-                        >
-                            Remove
-                        </button>
-                    </div>
+                <div class="variant-right-column">
+
+                    <section class="form-section additives-section">
+
+                        <div class="section-heading-row">
+                            <h2>Additives</h2>
+
+                            <button
+                                type="button"
+                                class="small-add-button"
+                                onclick="addAdditiveRow()"
+                            >
+                                Add Additive
+                            </button>
+                        </div>
+
+
+                        <div id="additive-list">
+
+                            <!-- Initial blank additive row -->
+                            <div class="ingredient-entry">
+
+                                <input
+                                    type="text"
+                                    name="additive_name"
+                                    placeholder="Additive name"
+                                >
+
+                                <input
+                                    type="text"
+                                    name="additive_amount"
+                                    placeholder="Amount"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="remove-ingredient-button"
+                                    onclick="removeAdditiveRow(this)"
+                                >
+                                    Remove
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
 
                 </div>
 
-            </section>
+            </div>
 
+
+
+            <!-- =========================
+                 SAVE / CANCEL
+                 ========================= -->
 
             <div class="form-actions">
-                <button type="submit">Save Variant</button>
 
-                <a href="{% url 'glaze_detail' glaze.id %}" class="back-button">
+                <button type="submit">
+                    Save Variant
+                </button>
+
+                <a
+                    href="{% url 'glaze_detail' glaze.id %}"
+                    class="back-button"
+                >
                     Cancel
                 </a>
+
             </div>
 
         </form>
@@ -103,49 +199,179 @@
 </div>
 
 
+
 <script>
+
+    /* =========================
+       ADD ADDITIVE ROW
+       ========================= */
+
     function addAdditiveRow() {
-        const additiveList = document.getElementById("additive-list");
 
-        const newRow = document.createElement("div");
-        newRow.classList.add("ingredient-entry");
+    const additiveList =
+        document.getElementById("additive-list");
 
-        newRow.innerHTML = `
-            <input
-                type="text"
-                name="additive_name"
-                placeholder="Additive name"
-            >
+    const newRow =
+        document.createElement("div");
 
-            <input
-                type="text"
-                name="additive_amount"
-                placeholder="Amount"
-            >
+    newRow.classList.add("ingredient-entry");
 
-            <button
-                type="button"
-                class="remove-ingredient-button"
-                onclick="removeAdditiveRow(this)"
-            >
-                Remove
-            </button>
-        `;
 
-        additiveList.appendChild(newRow);
+    newRow.innerHTML = `
+        <input
+            type="text"
+            name="additive_name"
+            placeholder="Additive name"
+        >
+
+        <input
+            type="text"
+            name="additive_amount"
+            placeholder="Amount"
+        >
+
+        <button
+            type="button"
+            class="remove-ingredient-button"
+            onclick="removeAdditiveRow(this)"
+        >
+            Remove
+        </button>
+    `;
+        additiveList.prepend(newRow);
     }
+
+
+
+    /* =========================
+       REMOVE ADDITIVE ROW
+       ========================= */
 
     function removeAdditiveRow(button) {
+
         const row = button.parentElement;
-        const additiveList = document.getElementById("additive-list");
+
+        const additiveList =
+            document.getElementById("additive-list");
+
 
         if (additiveList.children.length > 1) {
+
             row.remove();
+
         } else {
-            row.querySelectorAll("input").forEach(input => input.value = "");
+
+            row.querySelectorAll("input")
+                .forEach(input => input.value = "");
         }
     }
+
+
+
+    /* =========================
+       IMAGE PREVIEWS
+       ========================= */
+
+    const variantImageInput =
+        document.getElementById("variant-images");
+
+    const variantPreviewContainer =
+        document.getElementById("variant-image-preview");
+
+    let selectedVariantFiles = [];
+
+
+    variantImageInput.addEventListener("change", function () {
+
+        const newFiles = Array.from(this.files);
+
+        newFiles.forEach(file => {
+
+            const alreadyAdded =
+                selectedVariantFiles.some(existingFile =>
+                    existingFile.name === file.name &&
+                    existingFile.size === file.size &&
+                    existingFile.lastModified === file.lastModified
+                );
+
+            if (!alreadyAdded) {
+                selectedVariantFiles.push(file);
+            }
+
+        });
+
+        updateVariantFileInput();
+        displayVariantPreviews();
+    });
+
+
+    function updateVariantFileInput() {
+
+        const dataTransfer = new DataTransfer();
+
+        selectedVariantFiles.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+
+        variantImageInput.files = dataTransfer.files;
+    }
+
+
+    function displayVariantPreviews() {
+
+        variantPreviewContainer.innerHTML = "";
+
+        selectedVariantFiles.forEach((file, index) => {
+
+            const card = document.createElement("div");
+            card.classList.add("image-preview-card");
+
+
+            const image = document.createElement("img");
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                image.src = event.target.result;
+            };
+
+            reader.readAsDataURL(file);
+
+
+            const fileName = document.createElement("p");
+            fileName.classList.add("image-file-name");
+            fileName.textContent = file.name;
+
+
+            const removeButton = document.createElement("button");
+
+            removeButton.type = "button";
+            removeButton.classList.add("remove-image-button");
+            removeButton.textContent = "Remove";
+
+            removeButton.addEventListener("click", function () {
+                removeVariantImage(index);
+            });
+
+
+            card.appendChild(image);
+            card.appendChild(fileName);
+            card.appendChild(removeButton);
+
+            variantPreviewContainer.appendChild(card);
+        });
+    }
+
+
+    function removeVariantImage(index) {
+
+        selectedVariantFiles.splice(index, 1);
+
+        updateVariantFileInput();
+        displayVariantPreviews();
+    }
 </script>
+
 
 </body>
 </html>
