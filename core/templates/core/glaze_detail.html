@@ -102,15 +102,24 @@
 
                         {% for photo in glaze.photos.all %}
                             <div class="glaze-photo-card">
+
                                 <img
                                     src="{{ photo.image.url }}"
-                                    alt="{{ photo.caption|default:glaze.name }}"
                                     class="glaze-image"
+                                    alt="Glaze image"
                                 >
 
-                                {% if photo.caption %}
-                                    <p>{{ photo.caption }}</p>
-                                {% endif %}
+                                <form method="post" action="{% url 'delete_glaze_photo' glaze.id photo.id %}">
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="remove-image-button"
+                                    >
+                                        Remove
+                                    </button>
+                                </form>
+
                             </div>
                         {% empty %}
                             <p>No base images available.</p>
@@ -154,6 +163,21 @@
                         {% for variant in glaze.variants.all %}
 
                             <div class="variant-card {% if not forloop.first %}hidden-variant{% endif %}">
+
+                                <form
+                                    method="post"
+                                    action="{% url 'delete_variant' glaze.id variant.id %}"
+                                    class="delete-variant-form"
+                                >
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="delete-variant-button"
+                                    >
+                                        Delete Variant
+                                    </button>
+                                </form>
 
                                 <div class="variant-main-info">
 
