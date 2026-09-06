@@ -10,8 +10,8 @@
 }
 
 .add-glaze-card {
-    width: 90%;
-    max-width: 900px;
+    width: 95%;
+    max-width: 1500px;
     margin: 0 auto;
     background-color: var(--green);
     color: var(--cream);
@@ -76,6 +76,46 @@
     resize: vertical;
 }
 
+/* ================================
+   REMOVE BUTTON
+   ================================ */
+
+.remove-ingredient-button {
+    background-color: var(--danger);
+    color: var(--white);
+
+    padding: 10px 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ================================
+   ADD INGREDIENT BUTTON
+   ================================ */
+
+.small-add-button {
+    background-color: var(--tan);
+    color: var(--dark);
+
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.small-add-button:hover {
+    background-color: var(--tan-dark);
+}
+
 
 /* ================================
    INGREDIENT INPUTS
@@ -87,6 +127,12 @@
     gap: 12px;
     align-items: center;
     margin-bottom: 12px;
+}
+
+#ingredient-list .ingredient-entry:first-child {
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 2px solid var(--tan);
 }
 
 
@@ -112,4 +158,92 @@
 
 .form-actions button:hover {
     background-color: var(--tan-dark);
+}
+
+/* ================================
+   TWO COLUMN ADD GLAZE LAYOUT
+   ================================ */
+
+.add-glaze-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.glaze-left-column,
+.glaze-right-column {
+    min-width: 0;
+}
+
+/* ================================
+   INGREDIENT HEADER
+   ================================ */
+
+.section-heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.section-heading-row h2 {
+    margin: 0;
+}
+
+/* ================================
+   IMAGE PREVIEWS
+   ================================ */
+
+.image-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+
+.image-preview-card {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+.image-preview-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+
+.image-file-name {
+    color: var(--dark);
+    font-size: 13px;
+    margin: 8px 0;
+    overflow-wrap: anywhere;
+}
+
+
+.remove-image-button {
+    background-color: var(--danger);
+    color: var(--white);
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 8px 12px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.remove-image-button:hover {
+    background-color: var(--danger-dark);
 }

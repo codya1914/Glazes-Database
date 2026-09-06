@@ -14,89 +14,139 @@
 
     <div class="add-glaze-card">
 
-        <div class="detail-top">
-            <a href="{% url 'index' %}" class="back-button">Back to Database</a>
-        </div>
-
-        <h1>Add Base Glaze</h1>
+        <h1>Add Glaze</h1>
 
         <p class="page-description">
-            Add the main base glaze information here. Images and variants can be added later from the glaze detail page.
+            Enter the base glaze information, ingredients, and images.
         </p>
 
-        <form method="post" class="glaze-form">
+        <form method="post"
+              enctype="multipart/form-data"
+              class="glaze-form">
+
             {% csrf_token %}
 
-            <section class="form-section">
-                <h2>Base Glaze Information</h2>
+            <div class="add-glaze-layout">
 
-                <p>
-                    <label for="{{ form.name.id_for_label }}">Glaze Name</label>
-                    {{ form.name }}
-                </p>
+                <!-- LEFT SIDE -->
+                <div class="glaze-left-column">
 
-                <p>
-                    <label for="{{ form.cone.id_for_label }}">Cone</label>
-                    {{ form.cone }}
-                </p>
+                    <section class="form-section">
+                        <h2>Glaze Information</h2>
 
-                <p>
-                    <label for="{{ form.texture.id_for_label }}">Texture</label>
-                    {{ form.texture }}
-                </p>
+                        <p>
+                            <label for="{{ form.name.id_for_label }}">Name</label>
+                            {{ form.name }}
+                        </p>
 
-                <p>
-                    <label for="{{ form.transparency.id_for_label }}">Transparency</label>
-                    {{ form.transparency }}
-                </p>
+                        <p>
+                            <label for="{{ form.cone.id_for_label }}">Cone</label>
+                            {{ form.cone }}
+                        </p>
 
-                <p>
-                    <label for="{{ form.notes.id_for_label }}">Notes</label>
-                    {{ form.notes }}
-                </p>
-            </section>
+                        <p>
+                            <label for="{{ form.texture.id_for_label }}">Texture</label>
+                            {{ form.texture }}
+                        </p>
+
+                        <p>
+                            <label for="{{ form.transparency.id_for_label }}">
+                                Transparency
+                            </label>
+                            {{ form.transparency }}
+                        </p>
+
+                        <p>
+                            <label for="{{ form.notes.id_for_label }}">Notes</label>
+                            {{ form.notes }}
+                        </p>
+                    </section>
 
 
-            <section class="form-section ingredients-section">
-                <div class="section-heading-row">
-                    <h2>Base Ingredients</h2>
+                    <!-- IMAGES -->
+                    <section class="form-section">
+                        <h2>Images</h2>
 
-                    <button type="button" class="small-add-button" onclick="addIngredientRow()">
-                        Add Ingredient
-                    </button>
-                </div>
-
-                <div id="ingredient-list">
-
-                    <div class="ingredient-entry">
-                        <input
-                            type="text"
-                            name="ingredient_name"
-                            placeholder="Ingredient name"
-                        >
+                        <p class="image-help">
+                            Select one or more images for this glaze.
+                        </p>
 
                         <input
-                            type="text"
-                            name="ingredient_amount"
-                            placeholder="Amount"
+                            type="file"
+                            name="images"
+                            id="glaze-images"
+                            accept="image/*"
+                            multiple
                         >
 
-                        <button
-                            type="button"
-                            class="remove-ingredient-button"
-                            onclick="removeIngredientRow(this)"
-                        >
-                            Remove
-                        </button>
-                    </div>
+                        <div
+                            id="image-preview"
+                            class="image-preview-grid">
+                        </div>
+                    </section>
 
                 </div>
-            </section>
+
+
+                <!-- RIGHT SIDE -->
+                <div class="glaze-right-column">
+
+                    <section class="form-section ingredients-section">
+
+                        <div class="section-heading-row">
+
+                            <h2>Ingredients</h2>
+
+                            <button
+                                type="button"
+                                class="small-add-button"
+                                onclick="addIngredientRow()"
+                            >
+                                Add Ingredient
+                            </button>
+
+                        </div>
+
+                        <div id="ingredient-list">
+
+                            <div class="ingredient-entry">
+
+                                <input
+                                    type="text"
+                                    name="ingredient_name"
+                                    placeholder="Ingredient name"
+                                >
+
+                                <input
+                                    type="text"
+                                    name="ingredient_amount"
+                                    placeholder="Amount"
+                                >
+
+                                <button
+                                    type="button"
+                                    class="remove-ingredient-button"
+                                    onclick="removeIngredientRow(this)">
+                                    Remove
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </div>
 
 
             <div class="form-actions">
-                <button type="submit">Save Base Glaze</button>
-                <a href="{% url 'index' %}" class="back-button">Cancel</a>
+                <button type="submit">Save Glaze</button>
+
+                <a href="{% url 'index' %}" class="back-button">
+                    Back to Database
+                </a>
             </div>
 
         </form>
@@ -105,38 +155,135 @@
 
 </div>
 
+<script>
+    const imageInput = document.getElementById("glaze-images");
+    const previewContainer = document.getElementById("image-preview");
+
+    let selectedFiles = [];
+
+
+    imageInput.addEventListener("change", function () {
+
+        const newFiles = Array.from(this.files);
+
+        newFiles.forEach(file => {
+
+            // Prevent the exact same image from being added twice
+            const alreadyAdded = selectedFiles.some(existingFile =>
+                existingFile.name === file.name &&
+                existingFile.size === file.size &&
+                existingFile.lastModified === file.lastModified
+            );
+
+            if (!alreadyAdded) {
+                selectedFiles.push(file);
+            }
+
+        });
+
+        updateFileInput();
+        displayPreviews();
+    });
+
+
+    function updateFileInput() {
+
+        const dataTransfer = new DataTransfer();
+
+        selectedFiles.forEach(file => {
+            dataTransfer.items.add(file);
+        });
+
+        imageInput.files = dataTransfer.files;
+    }
+
+
+    function displayPreviews() {
+
+        previewContainer.innerHTML = "";
+
+        selectedFiles.forEach((file, index) => {
+
+            const card = document.createElement("div");
+            card.classList.add("image-preview-card");
+
+
+            const image = document.createElement("img");
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                image.src = event.target.result;
+            };
+
+            reader.readAsDataURL(file);
+
+
+            const fileName = document.createElement("p");
+            fileName.classList.add("image-file-name");
+            fileName.textContent = file.name;
+
+
+            const removeButton = document.createElement("button");
+
+            removeButton.type = "button";
+            removeButton.classList.add("remove-image-button");
+            removeButton.textContent = "Remove";
+
+            removeButton.addEventListener("click", function () {
+                removeImage(index);
+            });
+
+
+            card.appendChild(image);
+            card.appendChild(fileName);
+            card.appendChild(removeButton);
+
+            previewContainer.appendChild(card);
+        });
+    }
+
+
+    function removeImage(index) {
+
+        selectedFiles.splice(index, 1);
+
+        updateFileInput();
+        displayPreviews();
+    }
+</script>
 
 <script>
     function addIngredientRow() {
-        const ingredientList = document.getElementById("ingredient-list");
+    const ingredientList = document.getElementById("ingredient-list");
 
-        const newRow = document.createElement("div");
-        newRow.classList.add("ingredient-entry");
+    const newRow = document.createElement("div");
+    newRow.classList.add("ingredient-entry");
 
-        newRow.innerHTML = `
-            <input
-                type="text"
-                name="ingredient_name"
-                placeholder="Ingredient name"
-            >
+    newRow.innerHTML = `
+        <input
+            type="text"
+            name="ingredient_name"
+            placeholder="Ingredient name"
+        >
 
-            <input
-                type="text"
-                name="ingredient_amount"
-                placeholder="Amount"
-            >
+        <input
+            type="text"
+            name="ingredient_amount"
+            placeholder="Amount"
+        >
 
-            <button
-                type="button"
-                class="remove-ingredient-button"
-                onclick="removeIngredientRow(this)"
-            >
-                Remove
-            </button>
-        `;
+        <button
+            type="button"
+            class="remove-ingredient-button"
+            onclick="removeIngredientRow(this)"
+        >
+            Remove
+        </button>
+    `;
 
-        ingredientList.appendChild(newRow);
-    }
+    ingredientList.prepend(newRow);
+}
 
     function removeIngredientRow(button) {
         const row = button.parentElement;
